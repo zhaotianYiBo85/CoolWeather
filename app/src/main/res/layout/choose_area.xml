@@ -3,24 +3,20 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFF">
-
-    <!--head-->
+    <!-- 定义头布局 -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary">
-
-        <!--title-->
+        <!-- 显示标题内容 -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/title_text"
             android:layout_centerInParent="true"
             android:textColor="#FFF"
-            android:textSize="20sp">
-        </TextView>
-
-        <!--return operation button-->
+            android:textSize="20sp"/>
+        <!-- 执行返回操作的按钮 -->
         <Button
             android:layout_width="25dp"
             android:layout_height="25dp"
@@ -30,10 +26,9 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"/>
     </RelativeLayout>
-
+    <!-- 显示省市县的数据 -->
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/list_view"/>
-
 </LinearLayout>
