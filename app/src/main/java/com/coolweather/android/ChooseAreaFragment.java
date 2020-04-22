@@ -36,15 +36,11 @@ import okhttp3.Response;
 import static org.litepal.LitePalApplication.getContext;
 
 public class ChooseAreaFragment extends Fragment {
-    /**
-     * 宏定义试图的不同级别
-     */
+
     public static final int LEVEL_PROVINCE = 0;
     public static final int LEVEL_CITY = 1;
     public static final int LEVEL_COUNTY = 2;
-    /**
-     * 准备一些控件
-     */
+
     private ProgressDialog progressDialog;
     private TextView titleText;
     private Button backButton;
@@ -106,10 +102,10 @@ public class ChooseAreaFragment extends Fragment {
      * 查询全国所有的省，优先从数据库中查，如果没有查询到再到服务器上查
      */
     private void queryProvinces() {
-        titleText.setText("中国");    // 设置头布局标题
-        backButton.setVisibility(View.GONE);    // 隐藏返回按钮
-        provinceList = DataSupport.findAll(Province.class); // 调用 LitePal 查询接口来从数据库中读取省级数据
-        if (provinceList.size() > 0) {  // 读到了则显示到界面上
+        titleText.setText("中国");
+        backButton.setVisibility(View.GONE);
+        provinceList = DataSupport.findAll(Province.class);
+        if (provinceList.size() > 0) {
             dataList.clear();
             for (Province province : provinceList) {
                 dataList.add(province.getProvinceName());
@@ -117,9 +113,9 @@ public class ChooseAreaFragment extends Fragment {
             adapter.notifyDataSetChanged();
             listView.setSelection(0);
             currentLevel = LEVEL_PROVINCE;
-        } else {    // 没有读到则从服务器上获取
-            String address = "http://guolin.tech/api/china";    // 请求地址
-            queryFromServer(address, "province");   // 后面会定义此方法
+        } else {
+            String address = "http://guolin.tech/api/china";
+            queryFromServer(address, "province");
         }
     }
     /**
@@ -172,9 +168,9 @@ public class ChooseAreaFragment extends Fragment {
      */
     private void queryFromServer(String address, final String type) {
         showProgressDialog();
-        HttpUtil.sendOkHttpRequest(address, new Callback() {    // 向服务器发送请求
+        HttpUtil.sendOkHttpRequest(address, new Callback() {
             @Override
-            public void onFailure(Call call, IOException e) {   //处理加载失败的情况
+            public void onFailure(Call call, IOException e) {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -185,7 +181,6 @@ public class ChooseAreaFragment extends Fragment {
             }
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                // 接收响应的数据并做对应处理
                 String responseText = response.body().string();
                 boolean result = false;
                 if ("province".equals(type)) {
@@ -201,7 +196,7 @@ public class ChooseAreaFragment extends Fragment {
                         public void run() {
                             closeProgressDialog();
                             if ("province".equals(type)) {
-                                queryProvinces();   // 重新加载数据
+                                queryProvinces();
                             } else if ("city".equals(type)) {
                                 queryCities();
                             } else if ("county".equals(type)) {

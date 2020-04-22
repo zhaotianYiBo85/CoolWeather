@@ -14,15 +14,15 @@ public class Utility {
      * 解析和处理服务器返回的省级数据
      */
     public static boolean handleProvinceResponse(String response) {
-        if (!TextUtils.isEmpty(response)) {  // 数据非空
+        if (!TextUtils.isEmpty(response)) {
             try {
-                JSONArray allProvinces = new JSONArray(response);   // 创建一个用于解析的 JSON 数组
+                JSONArray allProvinces = new JSONArray(response);
                 for (int i = 0; i < allProvinces.length(); i++) {
-                    JSONObject provinceObject = allProvinces.getJSONObject(i);  // 获取每一个 JSON 对象
+                    JSONObject provinceObject = allProvinces.getJSONObject(i);
                     Province province = new Province();
-                    province.setProvinceName(provinceObject.getString("name")); // 将 JSON 对象中的 name 字段赋给 ProvinceName
-                    province.setProvinceCode(provinceObject.getInt("id"));  // 将 JSON 对象中的 id 字段赋给 ProvinceCode
-                    province.save(); // 将数据存到数据库中
+                    province.setProvinceName(provinceObject.getString("name"));
+                    province.setProvinceCode(provinceObject.getInt("id"));
+                    province.save();
                 }
                 return true;
             } catch (JSONException e) {
